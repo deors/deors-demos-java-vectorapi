@@ -11,8 +11,8 @@ public class VectorAPIExample {
     public static void main(String[] args) {
         classicExample();
         vectorExample();
-        classicExampleBigData();
-        vectorExampleBigData();
+        classicBigDataExample();
+        vectorBigDataExample();
     }
 
     @Benchmark
@@ -31,7 +31,7 @@ public class VectorAPIExample {
         if (VERBOSE) {
             System.out.println("classicExample results:");
             for (var i = 0; i < c.length; i++) {
-                System.out.printf("sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
+                System.out.printf("  sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
             }
         }
     }
@@ -55,7 +55,7 @@ public class VectorAPIExample {
         if (VERBOSE) {
             System.out.println("vectorExample results:");
             for (var i = 0; i < c.length; i++) {
-                System.out.printf("sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
+                System.out.printf("  sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
             }
         }
     }
@@ -64,7 +64,7 @@ public class VectorAPIExample {
     @Fork(value = 1)
     @Warmup(iterations = 2)
     @Measurement(iterations = 3)
-    public static void classicExampleBigData() {
+    public static void classicBigDataExample() {
         var a = randomFloatArray(DATA_SIZE);
         var b = randomFloatArray(DATA_SIZE);
         var c = new float[DATA_SIZE];
@@ -74,9 +74,9 @@ public class VectorAPIExample {
         }
 
         if (VERBOSE) {
-            System.out.println("classicExampleBigData results (last 10 elements only):");
+            System.out.println("classicBigDataExample results (last 10 elements only):");
             for (var i = c.length - 10; i < c.length; i++) {
-                System.out.printf("sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
+                System.out.printf("  sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
             }
         }
     }
@@ -85,7 +85,7 @@ public class VectorAPIExample {
     @Fork(value = 1)
     @Warmup(iterations = 2)
     @Measurement(iterations = 3)
-    public static void vectorExampleBigData() {
+    public static void vectorBigDataExample() {
         var a = randomFloatArray(DATA_SIZE);
         var b = randomFloatArray(DATA_SIZE);
         var c = new float[DATA_SIZE];
@@ -98,9 +98,9 @@ public class VectorAPIExample {
         }
 
         if (VERBOSE) {
-            System.out.println("results (last 10 elements only):");
+            System.out.println("vectorBigDataExample results (last 10 elements only):");
             for (var i = c.length - 10; i < c.length; i++) {
-                System.out.printf("vectorExampleBigData sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
+                System.out.printf("  sample %d: %f , %f => %f%n", i, a[i], b[i], c[i]);
             }
         }
     }
