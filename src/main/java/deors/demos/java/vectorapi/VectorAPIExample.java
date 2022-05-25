@@ -4,7 +4,6 @@ import jdk.incubator.vector.*;
 import org.openjdk.jmh.annotations.*;
 
 public class VectorAPIExample {
-    static final VectorSpecies<Float> SPECIES = FloatVector.SPECIES_PREFERRED;
     static final boolean VERBOSE = Boolean.valueOf(System.getProperty("verbose", "false"));
     static final int DATA_SIZE = 1_000_000;
 
@@ -86,14 +85,16 @@ public class VectorAPIExample {
     @Warmup(iterations = 2)
     @Measurement(iterations = 3)
     public static void bigDataExampleVector() {
+        var species = FloatVector.SPECIES_PREFERRED;
+
         var a = randomFloatArray(DATA_SIZE);
         var b = randomFloatArray(DATA_SIZE);
         var c = new float[DATA_SIZE];
 
-        for (var i = 0; i < a.length; i += SPECIES.length()) {
-            var mask = SPECIES.indexInRange(i, a.length);
-            var va = FloatVector.fromArray(SPECIES, a, i, mask);
-            var vb = FloatVector.fromArray(SPECIES, b, i, mask);
+        for (var i = 0; i < a.length; i += species.length()) {
+            var mask = species.indexInRange(i, a.length);
+            var va = FloatVector.fromArray(species, a, i, mask);
+            var vb = FloatVector.fromArray(species, b, i, mask);
             va.pow(2).add(vb.pow(2)).neg().intoArray(c, i, mask);
         }
 
