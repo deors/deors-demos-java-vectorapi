@@ -47,7 +47,7 @@ public class VectorAPIExample {
         var va = FloatVector.fromArray(FloatVector.SPECIES_128, a, 0);
         var vb = FloatVector.fromArray(FloatVector.SPECIES_128, b, 0);
 
-        var result = va.pow(2).add(vb.pow(2)).neg();
+        var result = va.mul(va).add(vb.mul(vb)).neg();
 
         result.intoArray(c, 0);
 
@@ -95,7 +95,7 @@ public class VectorAPIExample {
             var mask = species.indexInRange(i, a.length);
             var va = FloatVector.fromArray(species, a, i, mask);
             var vb = FloatVector.fromArray(species, b, i, mask);
-            va.pow(2).add(vb.pow(2)).neg().intoArray(c, i, mask);
+            va.mul(va).add(vb.mul(vb)).neg().intoArray(c, i, mask);
         }
 
         if (VERBOSE) {
